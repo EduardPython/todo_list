@@ -5,6 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-
+    <h1>To do list</h1>
+<div>
+    {% for task in object_list %}
+        <p>{{ task.description }}</p>
+    {% endfor %}
+</div>
 </body>
 </html>
