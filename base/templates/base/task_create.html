@@ -1,0 +1,21 @@
+{% extends "base/base.html" %}
+
+{% block form %}
+
+    <div>
+        <form action="{% url "tasks" %}" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <div>
+    {% for task in all_tasks %}
+        <p>{{ task.description }} | {{ task.priority }}</p>
+    {% endfor %}
+    </div>
+
+
+
+{% endblock form %}

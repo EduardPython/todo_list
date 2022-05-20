@@ -28,3 +28,6 @@ Tady zkusím psát všechny jednotlivé kroky co se na todo_list udělají
 - registrace modelu Task v admin.py     #aby jsme mohly v 127.0.0.1:8000/admin zkouknout jak vypadá náš model Task a můžeme přidat na zkoušku nějaké ukoly
 - ve views.py vytvořen TaskListView pro zobrazovani vytvorenych ukolu pomoci nejake sablony
 - base/urls.py > pridáno nase nove >view< a >name< pro odkazy na tuto stranku: path("", TaskListView.as_view(), name="tasks"),
+- vytvoreni base.html jako základu pro ostatní podstránky. tady bude hlavička se všemi "must have" html věcmi
+- v homepage.html uprava na {% extends %}, odteď všechny html "rozšiřují" základní base.html
+

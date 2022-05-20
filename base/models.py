@@ -21,8 +21,8 @@ class Task(models.Model):
     completed = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.description[:8]
+        return self.description[:30]
 
-    class Meta:
-        ordering = ["completed"]
+    # class Meta:
+    #     ordering = ["completed"]
 
