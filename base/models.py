@@ -18,6 +18,7 @@ class Task(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     priority = models.CharField(choices=PRIORITY_CHOICES, default="normal", max_length=15)  # there must be a "max_lenght" attribute
 
+    dead_line = models.DateField()
     completed = models.BooleanField(default=False)
 
     def __str__(self):

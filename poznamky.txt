@@ -31,3 +31,9 @@ Tady zkusím psát všechny jednotlivé kroky co se na todo_list udělají
 - vytvoreni base.html jako základu pro ostatní podstránky. tady bude hlavička se všemi "must have" html věcmi
 - v homepage.html uprava na {% extends %}, odteď všechny html "rozšiřují" základní base.html
 
+* pridal jsem novy field "dead_line" do DB -> dead_line = models.DateField()
+    - musím to té databázi říct tím, že v terminálu zadám migrace - "python manage.py makemigrations"
+        - je treba urcit default hodnotu pro DateField, zvolim 1 + Enter
+        - zadam "timezone.now" a vytvori mi to migraci
+    - nyni provedu samotnou migraci - "python manage.py migrate"
+
