@@ -12,7 +12,7 @@
 
     <div>
     {% for task in all_tasks %}
-        <p>{{ task.description }} | {{ task.priority }}</p>
+        <p>{{ task.description }} | {{ task.priority }} | {{ task.dead_line }}</p>
     {% endfor %}
     </div>
 

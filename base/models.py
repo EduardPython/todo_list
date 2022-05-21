@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 class Task(models.Model):
@@ -18,7 +19,7 @@ class Task(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     priority = models.CharField(choices=PRIORITY_CHOICES, default="normal", max_length=15)  # there must be a "max_lenght" attribute
 
-    dead_line = models.DateField()
+    dead_line = models.DateField(default=timezone.now())
     completed = models.BooleanField(default=False)
 
     def __str__(self):
