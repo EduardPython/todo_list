@@ -21,6 +21,7 @@ class Task(models.Model):
 
     dead_line = models.DateField(default=timezone.now())
     completed = models.BooleanField(default=False)
+    category = models.CharField(max_length=21, default='no_category')
 
     def __str__(self):
         return self.description[:30]
