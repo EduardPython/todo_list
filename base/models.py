@@ -4,9 +4,9 @@ from django.utils import timezone
 
 
 class Task(models.Model):
-    PRIORITY_HIGH = "high"
-    PRIORITY_NORMAL = "normal"
-    PRIORITY_LOW = "low"
+    PRIORITY_HIGH = "Must do"
+    PRIORITY_NORMAL = "Should do"
+    PRIORITY_LOW = "Nice to do"
 
     PRIORITY_CHOICES = (
         (PRIORITY_HIGH, "Must do"),
