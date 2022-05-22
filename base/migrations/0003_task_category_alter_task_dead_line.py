@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='task',
             name='category',
-            field=models.CharField(default='no_category', max_length=22),
+            field=models.CharField(default='other', max_length=22),
         ),
         migrations.AlterField(
             model_name='task',

@@ -1,0 +1,30 @@
+{% include "base/base.html" %}
+
+{% block body %}
+    <h2>Category:</h2><br>
+
+    <h4>Family ({{ object_list.count }})</h4>
+    {% for task in family %}
+    <p>{{ task.name  }}</p>
+    {% endfor %}<br>
+
+   <h4>Work ({{ object_list.count }})</h4>
+    {% for task in work %}
+    <p>{{ task.name  }}</p>
+    {% endfor %}<br>
+
+    <h4>Garden ({{ object_list.count }})</h4>
+    {% for task in garden %}
+    <p>{{ task.name  }}</p>
+    {% endfor %}
+
+    <h4>Household ({{ object_list.count }})</h4>
+    {% for task in household %}
+    <p>{{ task.name  }}</p>
+    {% endfor %}
+
+    <h4>Other ({{ object_list.count }})</h4>
+    {% for task in other %}
+    <p>{{ task.name  }}</p>
+    {% endfor %}
+{% endblock body %}
