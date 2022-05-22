@@ -12,10 +12,8 @@
 
     <div>
     {% for task in all_tasks %}
-        <p>{{ task.description }} | {{ task.priority }} | {{ task.dead_line }}</p>
+        <p>{{ task.description }} | {{ task.priority }} | {{ task.dead_line }} | {{ task.category }}</p>
     {% endfor %}
     </div>
-
-
 
 {% endblock form %}

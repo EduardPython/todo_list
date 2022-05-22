@@ -23,3 +23,14 @@ class TaskCreateView(CreateView):
         })
         return context
 
+
+class CategoryListView(ListView):
+    queryset = Task.objects.all()
+    template_name = "categories.html"
+    extra_context = {
+        "family": Task.objects.filter(category=Task.CATEGORY_FAMILY).order_by("-dead_line"),
+        "work": Task.objects.filter(category=Task.CATEGORY_WORK).order_by("-dead_line"),
+        "garden": Task.objects.filter(category=Task.CATEGORY_GARDEN).order_by("-dead_line"),
+        "household": Task.objects.filter(category=Task.CATEGORY_HOUSEHOLD).order_by("-dead_line"),
+        "other": Task.objects.filter(category=Task.CATEGORY_OTHER).order_by("-dead_line")
+    }
