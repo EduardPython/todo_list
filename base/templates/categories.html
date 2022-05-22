@@ -6,26 +6,26 @@
 
     <h4>Family ({{ family.count }})</h4>
     {% for task in family %}
-    <p>{{ task.name  }}</p>
+    <p>{{ task.description  }}</p>
     {% endfor %}
 
    <h4>Work ({{ work.count }})</h4>
     {% for task in work %}
-    <p>{{ task.name  }}</p>
+    <p>{{ task.description  }}</p>
     {% endfor %}
 
     <h4>Garden ({{ garden.count }})</h4>
     {% for task in garden %}
-    <p>{{ task.name  }}</p>
+    <p>{{ task.description  }}</p>
     {% endfor %}
 
     <h4>Household ({{ household.count }})</h4>
     {% for task in household %}
-    <p>{{ task.name  }}</p>
+    <p>{{ task.description  }}</p>
     {% endfor %}
 
     <h4>Other ({{ other.count }})</h4>
     {% for task in other %}
-    <p>{{ task.name  }}</p>
+    <p>{{ task.description  }}</p>
     {% endfor %}
 {% endblock body %}
