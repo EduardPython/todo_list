@@ -1,7 +1,7 @@
 {% extends "base/base.html" %}
 
 {% block form %}
-
+      <a href="{% url 'categories' %}">Categories</a><br><br>
     <div>
         <form action="{% url "tasks" %}" method="POST">
         {% csrf_token %}
