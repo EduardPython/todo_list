@@ -1,8 +1,8 @@
-{% include "base/base.html" %}
+{% include "base/../base.html" %}
 
 {% block body %}
-  <a href="{% url "tasks" %}">Homepage</a>
-    <h2>Category:</h2>
+  <a href="{% url "homepage" %}">Homepage</a>
+    <h3>CATEGORY:</h3>
 
     <h4>Family ({{ family.count }})</h4>
     {% for task in family %}
