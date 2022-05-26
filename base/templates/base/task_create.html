@@ -10,10 +10,29 @@
         </form>
     </div>
 
-    <div>
     {% for task in all_tasks %}
-        <p>{{ task.description }} | {{ task.priority }} | {{ task.dead_line }} | {{ task.category }}</p>
+        <div>
+        <div class="line">
+            {{ task.description }} | {{ task.priority }} | {{ task.dead_line }} | {{ task.category }}
+        </div>
+            {% if task.completed == False %}
+                <div class="line">
+                <form action="{% url "task_done" task.id %}" method="post">
+                                {% csrf_token %}
+                    <input type="submit" value="finished">
+                </form>
+                </div>
+
+            {% else %}
+                <div class="line">
+                <form action="{% url "task_done" task.id %}" method="post">
+                                {% csrf_token %}
+                    <input type="submit" value="unfinished">
+                </form>
+                </div>
+            {% endif %}
+        </div>
     {% endfor %}
-    </div>
+
 
 {% endblock form %}

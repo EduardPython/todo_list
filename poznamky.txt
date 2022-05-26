@@ -37,3 +37,13 @@ Tady zkusím psát všechny jednotlivé kroky co se na todo_list udělají
         - zadam "timezone.now" a vytvori mi to migraci
     - nyni provedu samotnou migraci - "python manage.py migrate"
 
+
+- vytvořeno view TaskDone pro funkci zaškrtnutí ukolu jako hotovy (doplněno v urls.py, task_create.html)
+- vytvořen soubor base.css ve složce static/css/
+- import a pridani urlpatterns do urls.py
+- v settings.py pridany cesty ke statics files
+- do base.html pridan {% load static %} a link.... pro načtení css
+- proveden prikaz "python manage.py collectstatic"
+- změny v css, aby bylo tlacitko na stejnem radku jako ukol
+- ve views pridano do all_tasks .orderby >"completed"< aby se odskrtnute ukoly radily dolu
+

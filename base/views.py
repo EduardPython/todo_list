@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.views.generic import ListView, CreateView
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, CreateView, DetailView
 from django.urls import reverse_lazy
 
 from .models import Task
@@ -14,7 +14,7 @@ class TaskCreateView(CreateView):
     def get_context_data(self, *args, **kwargs):
         context = super(TaskCreateView, self).get_context_data(*args, **kwargs)
         context.update({
-            'all_tasks': Task.objects.all().order_by("-created"),
+            'all_tasks': Task.objects.all().order_by("completed", "-created"),
         })
         return context
 
@@ -23,9 +23,8 @@ class CategoryListView(ListView):
     queryset = Task.objects.all()
     template_name = "categories.html"
 
-
     def get_context_data(self, *args, **kwargs):
-        context=super(CategoryListView, self).get_context_data(*args, **kwargs)
+        context = super(CategoryListView, self).get_context_data(*args, **kwargs)
         extra_context = {
             "family": Task.objects.filter(category=Task.CATEGORY_FAMILY).order_by("-dead_line"),
             "work": Task.objects.filter(category=Task.CATEGORY_WORK).order_by("-dead_line"),
@@ -35,3 +34,19 @@ class CategoryListView(ListView):
         }
         context.update(extra_context)
         return context
+
+
+class TaskDone(DetailView):
+    model = Task
+    template_name = "base/task_create.html"
+
+    def post(self, request, pk, *args, **kwargs):
+        task = self.get_object()
+        if not task.completed:
+            task.completed = True
+            task.save(update_fields=['completed', ])
+            return redirect('tasks', )
+        else:
+            task.completed = False
+            task.save(update_fields=['completed', ])
+            return redirect('tasks', )
