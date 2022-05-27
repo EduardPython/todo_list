@@ -12,9 +12,15 @@
 
     {% for task in all_tasks %}
         <div>
+        {% if task.completed %}
         <div class="line">
-            {{ task.description }} | {{ task.priority }} | {{ task.dead_line }} | {{ task.category }}
+            <i><s><span>{{ task.description }} | {{ task.priority }} | {{ task.dead_line }} | {{ task.category }}</span></s></i>
         </div>
+            {% else %}
+            <div class="line">
+            <span>{{ task.description }} | {{ task.priority }} | {{ task.dead_line }} | {{ task.category }}</span>
+            </div>
+        {% endif %}
             {% if task.completed == False %}
                 <div class="line">
                 <form action="{% url "task_done" task.id %}" method="post">
