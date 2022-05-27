@@ -21,7 +21,7 @@ class TaskCreateView(CreateView):
 
 class CategoryListView(ListView):
     queryset = Task.objects.all()
-    template_name = "categories.html"
+    template_name = "base/categories.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(CategoryListView, self).get_context_data(*args, **kwargs)
