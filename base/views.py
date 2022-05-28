@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, DetailView, DeleteView
 from django.urls import reverse_lazy
 
 from .models import Task
@@ -50,3 +50,8 @@ class TaskDone(DetailView):
             task.completed = False
             task.save(update_fields=['completed', ])
             return redirect('tasks', )
+
+class DeleteTaskView(DeleteView):
+    model = Task
+  #  template_name = "base/task_confirm_delete.html"
+    success_url = reverse_lazy("tasks")

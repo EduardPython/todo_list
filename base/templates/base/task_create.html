@@ -37,7 +37,9 @@
                 </form>
                 </div>
             {% endif %}
+        <a href="{% url "delete_task" task.id %}">delete</a>
         </div>
+
     {% endfor %}
 
 
