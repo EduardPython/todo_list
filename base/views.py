@@ -8,7 +8,7 @@ from .models import Task
 class TaskCreateView(CreateView):
     template_name = "base/task_create.html"
     model = Task
-    fields = ["category", "description", "priority", "dead_line"]
+    fields = ["category", "name", "priority", "dead_line"]
     success_url = reverse_lazy("tasks")
 
     def get_context_data(self, *args, **kwargs):
