@@ -29,7 +29,7 @@ class Task(models.Model):
     )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    description = models.CharField(max_length=256)
+    name = models.CharField(max_length=256)
     created = models.DateTimeField(auto_now_add=True)
     priority = models.CharField(choices=PRIORITY_CHOICES, default="normal", max_length=15)  # there must be a "max_lenght" attribute
 
@@ -38,7 +38,7 @@ class Task(models.Model):
     category = models.CharField(choices=CATEGORY_CHOICES, default="other", max_length=21)
 
     def __str__(self):
-        return self.description[:30]
+        return self.name[:30]
 
     # class Meta:
     #     ordering = ["completed"]
