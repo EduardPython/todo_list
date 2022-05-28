@@ -14,11 +14,11 @@
         <div>
         {% if task.completed %}
         <div class="line">
-            <i><s><span>{{ task.name }} | {{ task.priority }} | {{ task.dead_line }} | {{ task.category }}</span></s></i>
+            <i><s><span>{{ task.name|slice:":15" }} | {{ task.priority }} | {{ task.dead_line }} | {{ task.category }}</span></s></i>
         </div>
             {% else %}
             <div class="line">
-            <span>{{ task.name }} | {{ task.priority }} | {{ task.dead_line }} | {{ task.category }}</span>
+            <span>{{ task.name|slice:":15" }} | {{ task.priority }} | {{ task.dead_line }} | {{ task.category }}</span>
             </div>
         {% endif %}
             {% if task.completed == False %}
