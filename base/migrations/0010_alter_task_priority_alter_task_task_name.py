@@ -15,9 +15,5 @@ class Migration(migrations.Migration):
             name='priority',
             field=models.CharField(choices=[('Must do', 'Must do'), ('Should do', 'Should do'), ('Nice to do', 'Nice to do')], default='normal', max_length=15),
         ),
-        migrations.AlterField(
-            model_name='task',
-            name='task_name',
-            field=models.CharField(max_length=25),
-        ),
+
     ]
