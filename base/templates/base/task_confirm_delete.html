@@ -1,11 +1,12 @@
-{#{% extends "base/base.html" %}#}
-{##}
-{#{% block body %}#}
-{#  <form method="post">#}
-{#    {% crsf_token %}#}
-{#    <p>#}
-{#      Are you sure you want to delete task "{{ object.name }}?#}
-{#    </p>#}
-{#    <input type="submit" value="Delete">#}
-{#  </form>#}
-{#{% endblock %}#}
+{% extends "base/base.html" %}
+
+{% block body %}
+      <form method="post">
+        {% csrf_token %}
+        <p>
+          Are you sure you want to delete task "{{ task.name }}"?
+        </p>
+        <input type="submit" value="Delete">
+      </form>
+{% endblock %}
+
