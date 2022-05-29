@@ -8,7 +8,7 @@ from .models import Task
 class TaskCreateView(CreateView):
     template_name = "base/task_create.html"
     model = Task
-    fields = ["category", "name", "priority", "dead_line"]
+    fields = ["category", "name", "description", "priority", "dead_line"]
     success_url = reverse_lazy("tasks")
 
     def get_context_data(self, *args, **kwargs):
@@ -16,6 +16,15 @@ class TaskCreateView(CreateView):
         context.update({
             'all_tasks': Task.objects.all().order_by("completed", "-created"),
         })
+        return context
+
+
+class TaskDetailView(DetailView):
+    model = Task
+    template_name = "base/task_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(TaskDetailView, self).get_context_data(**kwargs)
         return context
 
 
@@ -30,7 +39,8 @@ class CategoryListView(ListView):
             "work": Task.objects.filter(category=Task.CATEGORY_WORK).order_by("-dead_line"),
             "garden": Task.objects.filter(category=Task.CATEGORY_GARDEN).order_by("-dead_line"),
             "household": Task.objects.filter(category=Task.CATEGORY_HOUSEHOLD).order_by("-dead_line"),
-            "other": Task.objects.filter(category=Task.CATEGORY_OTHER).order_by("-dead_line")
+            "other": Task.objects.filter(category=Task.CATEGORY_OTHER).order_by("-dead_line"),
+            'number_of_tasks': Task.objects.all().count()
         }
         context.update(extra_context)
         return context

@@ -1,6 +1,12 @@
+import uuid
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+
+
+def one_week_later():
+    return timezone.now() + timezone.timedelta(days=7)
 
 
 class Task(models.Model):
@@ -29,17 +35,17 @@ class Task(models.Model):
     )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    name = models.CharField(max_length=256)
+    name = models.CharField(max_length=25)
+    category = models.CharField(choices=CATEGORY_CHOICES, default="other", max_length=21)
+    description = models.TextField(null=True, blank=True, max_length=1000)
     created = models.DateTimeField(auto_now_add=True)
     priority = models.CharField(choices=PRIORITY_CHOICES, default="normal", max_length=15)  # there must be a "max_lenght" attribute
-
-    dead_line = models.DateField(default=timezone.now)
+    dead_line = models.DateField(default=one_week_later)
     completed = models.BooleanField(default=False)
-    category = models.CharField(choices=CATEGORY_CHOICES, default="other", max_length=21)
+
 
     def __str__(self):
         return self.name[:30]
 
     # class Meta:
     #     ordering = ["completed"]
-

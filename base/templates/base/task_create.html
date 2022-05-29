@@ -1,24 +1,28 @@
 {% extends "base/base.html" %}
 
 {% block form %}
-      <a href="{% url 'categories' %}">Categories</a><br><br>
-    <div>
-        <form action="{% url "tasks" %}" method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Submit">
-        </form>
-    </div>
+  <a href="{% url 'categories' %}">Categories</a><br><br>
+  <h4>CREATE A NEW TASK</h4>
+  <div>
+    <form action="{% url "tasks" %}" method="POST">
+      {% csrf_token %}
+      <table>
+        {{ form.as_table }}
+      </table>
+      <input type="submit" value="Submit">
+    </form>
+    <br><br>
+  </div>
 
     {% for task in all_tasks %}
         <div>
         {% if task.completed %}
         <div class="line">
-            <i><s><span>{{ task.name }} | {{ task.priority }} | {{ task.dead_line }} | {{ task.category }}</span></s></i>
+            <i><s><span>{{ task.name|slice:":25" }} - {{ task.priority }} - {{ task.dead_line }} - {{ task.category }}</span></s></i>
         </div>
             {% else %}
             <div class="line">
-            <span>{{ task.name }} | {{ task.priority }} | {{ task.dead_line }} | {{ task.category }}</span>
+            <span>{{ task.name|slice:":25" }} - {{ task.priority }} - To do by {{ task.dead_line }} - {{ task.category }}</span>
             </div>
         {% endif %}
             {% if task.completed == False %}
