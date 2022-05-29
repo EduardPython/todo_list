@@ -1,0 +1,9 @@
+body {
+    background: cadetblue;
+    text-align: center;
+
+}
+
+.line {
+    display: inline-flex;
+}

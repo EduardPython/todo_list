@@ -31,12 +31,31 @@ Tady zkusím psát všechny jednotlivé kroky co se na todo_list udělají
 - vytvoreni base.html jako základu pro ostatní podstránky. tady bude hlavička se všemi "must have" html věcmi
 - v homepage.html uprava na {% extends %}, odteď všechny html "rozšiřují" základní base.html
 
-* pridal jsem novy field "dead_line" do DB -> dead_line = models.DateField()
+* Pridal jsem novy field "dead_line" do DB -> dead_line = models.DateField()
     - musím to té databázi říct tím, že v terminálu zadám migrace - "python manage.py makemigrations"
         - je treba urcit default hodnotu pro DateField, zvolim 1 + Enter
         - zadam "timezone.now" a vytvori mi to migraci
     - nyni provedu samotnou migraci - "python manage.py migrate"
 
+* Pridani nove stranky "Categories":
+    - v models.py vytvorene CATEGORY_CHOICES s pridano pole -> category = models.CharField(choices=CATEGORY_CHOICES, default="other", max_length=21)
+    - ve views.py vytvorena trida Seznam kategorií-> class CategoryListView(ListView)
+    - vytvoren soubor "categories.html"
+    - do base/urls.py pridana cesta -> path("categories/", CategoryListView.as_view(), name="categories")
+    - do task_create.html vlozen odkaz url -> <a href="{% url 'categories' %}">Categories</a>
+
+* Zmenil jsem nazev url z "tasks" na "homepage" (bylo to pro mne opravdu dost matouci, sorry) - na 4 mistech:
+    1. task_create.html -> <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    2. categories.html -> <a href="{% url "homepage" %}">Homepage</a>
+    3. views.py\TaskCreateView -> success_url = reverse_lazy("homepage")
+    4. base\urls.py -> path("", TaskCreateView.as_view(), name="homepage")
+
+* Aktualizace pole dead_line z "timezone.now" na "one_week_later"
+    - do models.py pridana funkce "def one_week_later()"
+    - upravena hodnota default pole dead_line
+
+* Zmena formy v task_create.html
+    -> "<table>{{ form.as_table }}</table>"
 
 - vytvořeno view TaskDone pro funkci zaškrtnutí ukolu jako hotovy (doplněno v urls.py, task_create.html)
 - vytvořen soubor base.css ve složce static/css/
@@ -46,4 +65,10 @@ Tady zkusím psát všechny jednotlivé kroky co se na todo_list udělají
 - proveden prikaz "python manage.py collectstatic"
 - změny v css, aby bylo tlacitko na stejnem radku jako ukol
 - ve views pridano do all_tasks .orderby >"completed"< aby se odskrtnute ukoly radily dolu
+
+* Doplneni number_of_tasks do views.py
+        -> 'number_of_tasks': Task.objects.all().count()
+    a do categories.html
+        -> <h3>CATEGORIES - Total tasks ({{ number_of_tasks }})</h3>
+
 
