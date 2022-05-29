@@ -2,30 +2,30 @@
 
 {% block body %}
   <a href="{% url "tasks" %}">Homepage</a><br><br>
-    <h3>CATEGORIES - Total tasks ({{ number_of_tasks }})</h3>
+  <h3>CATEGORIES - Total tasks ({{ number_of_tasks }})</h3>
 
-    <h4>Family ({{ family.count }})</h4>
-    {% for task in family %}
+  <h4>Family ({{ family.count }})</h4>
+  {% for task in family %}
     <p>{{ task.name|slice:":25" }} - <a href="{% url 'task_detail' task.id %}">detail</a></p>
-    {% endfor %}
+  {% endfor %}<br>
 
-   <h4>Work ({{ work.count }})</h4>
-    {% for task in work %}
-    <p>{{ task.name|slice:":25" }} - <a href="{% url 'task_detail' task.id %}">detail</a></p></p>
-    {% endfor %}
+  <h4>Work ({{ work.count }})</h4>
+  {% for task in work %}
+    <p>{{ task.name|slice:":25" }} - <a href="{% url 'task_detail' task.id %}">detail</a></p>
+  {% endfor %}<br>
 
-    <h4>Garden ({{ garden.count }})</h4>
-    {% for task in garden %}
-    <p>{{ task.name|slice:":25" }} - <a href="{% url 'task_detail' task.id %}">detail</a></p></p>
-    {% endfor %}
+  <h4>Garden ({{ garden.count }})</h4>
+  {% for task in garden %}
+    <p>{{ task.name|slice:":25" }} - <a href="{% url 'task_detail' task.id %}">detail</a></p>
+  {% endfor %}<br>
 
-    <h4>Household ({{ household.count }})</h4>
-    {% for task in household %}
-    <p>{{ task.name|slice:":25" }} - <a href="{% url 'task_detail' task.id %}">detail</a></p></p>
-    {% endfor %}
+  <h4>Household ({{ household.count }})</h4>
+  {% for task in household %}
+    <p>{{ task.name|slice:":25" }} - <a href="{% url 'task_detail' task.id %}">detail</a></p>
+  {% endfor %}<br>
 
-    <h4>Other ({{ other.count }})</h4>
-    {% for task in other %}
-    <p>{{ task.name|slice:":25" }} - <a href="{% url 'task_detail' task.id %}">detail</a></p></p>
-    {% endfor %}
+  <h4>Other ({{ other.count }})</h4>
+  {% for task in other %}
+    <p>{{ task.name|slice:":25" }} - <a href="{% url 'task_detail' task.id %}">detail</a></p>
+  {% endfor %}<br>
 {% endblock body %}

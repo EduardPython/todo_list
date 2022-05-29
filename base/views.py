@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
 from django.urls import reverse_lazy
 
@@ -19,13 +19,13 @@ class TaskLoginView(LoginView):
 class TaskCreateView(CreateView):
     template_name = "base/task_create.html"
     model = Task
-    fields = ["category", "name", "description", "priority", "dead_line"]
+    fields = ["category", "name", "description", "priority", "to_do", "dead_line"]
     success_url = reverse_lazy("tasks")
 
     def get_context_data(self, *args, **kwargs):
-        context = super(TaskCreateView, self).get_context_data(*args, **kwargs)
+        context = super(TaskCreateView, self).get_context_data(**kwargs)
         context.update({
-            'all_tasks': Task.objects.all().order_by("completed", "-created"),
+            'all_tasks': Task.objects.all().order_by("completed", "dead_line", "priority", "-created"),
         })
         return context
 
@@ -61,7 +61,7 @@ class TaskDone(DetailView):
     model = Task
     template_name = "base/task_create.html"
 
-    def post(self, request, pk, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         task = self.get_object()
         if not task.completed:
             task.completed = True
@@ -72,7 +72,8 @@ class TaskDone(DetailView):
             task.save(update_fields=['completed', ])
             return redirect('tasks', )
 
+
 class DeleteTaskView(DeleteView):
     model = Task
-  #  template_name = "base/task_confirm_delete.html"
+    #  template_name = "base/task_confirm_delete.html"
     success_url = reverse_lazy("tasks")

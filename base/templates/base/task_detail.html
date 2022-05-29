@@ -1,6 +1,10 @@
-{% include 'base/base.html' %}
+{% extends 'base/base.html' %}
 
 {% block body %}
-  Name: {{ object.name }}<br><br>
-  Description: <pre>{{ object.description }}</pre>
-{% endblock %}
+  <a href="{% url "tasks" %}">Homepage</a><br>
+  <a href="{% url 'categories' %}">Categories</a>
+  <h3>{{ object.name }}</h3>
+  <pre>{{ object.description }}</pre><br>
+  To do: <br> * {{ object.to_do|date:'d.m Y' }}<br><br>
+  Dead line: <br> * {{ object.dead_line|date:'d.m Y' }}<br><br>
+{% endblock body %}

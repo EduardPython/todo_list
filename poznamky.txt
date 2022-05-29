@@ -31,8 +31,8 @@ Tady zkusím psát všechny jednotlivé kroky co se na todo_list udělají
 - vytvoreni base.html jako základu pro ostatní podstránky. tady bude hlavička se všemi "must have" html věcmi
 - v homepage.html uprava na {% extends %}, odteď všechny html "rozšiřují" základní base.html
 
-* Pridal jsem novy field "dead_line" do DB -> dead_line = models.DateField()
-    - musím to té databázi říct tím, že v terminálu zadám migrace - "python manage.py makemigrations"
+* Pridany novy field "dead_line" do DB -> dead_line = models.DateField()
+    - je treba to té databázi říct tím, že v terminálu zadám migrace - "python manage.py makemigrations"
         - je treba urcit default hodnotu pro DateField, zvolim 1 + Enter
         - zadam "timezone.now" a vytvori mi to migraci
     - nyni provedu samotnou migraci - "python manage.py migrate"
@@ -41,14 +41,8 @@ Tady zkusím psát všechny jednotlivé kroky co se na todo_list udělají
     - v models.py vytvorene CATEGORY_CHOICES s pridano pole -> category = models.CharField(choices=CATEGORY_CHOICES, default="other", max_length=21)
     - ve views.py vytvorena trida Seznam kategorií-> class CategoryListView(ListView)
     - vytvoren soubor "categories.html"
-    - do base/urls.py pridana cesta -> path("categories/", CategoryListView.as_view(), name="categories")
+    - do base\urls.py pridana cesta -> path("categories/", CategoryListView.as_view(), name="categories")
     - do task_create.html vlozen odkaz url -> <a href="{% url 'categories' %}">Categories</a>
-
-* Zmenil jsem nazev url z "tasks" na "homepage" (bylo to pro mne opravdu dost matouci, sorry) - na 4 mistech:
-    1. task_create.html -> <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
-    2. categories.html -> <a href="{% url "homepage" %}">Homepage</a>
-    3. views.py\TaskCreateView -> success_url = reverse_lazy("homepage")
-    4. base\urls.py -> path("", TaskCreateView.as_view(), name="homepage")
 
 * Aktualizace pole dead_line z "timezone.now" na "one_week_later"
     - do models.py pridana funkce "def one_week_later()"
@@ -66,12 +60,26 @@ Tady zkusím psát všechny jednotlivé kroky co se na todo_list udělají
 - změny v css, aby bylo tlacitko na stejnem radku jako ukol
 - ve views pridano do all_tasks .orderby >"completed"< aby se odskrtnute ukoly radily dolu
 
-* Doplneni number_of_tasks do views.py
+* Pridano number_of_tasks do views.py
         -> 'number_of_tasks': Task.objects.all().count()
     a do categories.html
         -> <h3>CATEGORIES - Total tasks ({{ number_of_tasks }})</h3>
 
+* Pridano pole "detail" pro ukoly
+    - v models.py pridano pole "description"
+    - ve views.py vytvorena nova trida "TaskDetailView"
+    - vytvoren "task_detail.html"
+    - do base\urls.py doplnena cesta
+    - v categories.html doplneny cesty
 
+* V models.py pridano pole "to_do" s defaultni hodnotou=tomorrow
+    - vytvorena funkce "def tomorrow()"
+    - ve views.py doplneno pole "to_do" do "fields" v TaskCreateView
+    - doplneno take do "task_create.html" a do "task_detail.html"
+
+* upraven format datatime u "to_do" a "dead_line" z US formatu na citelnejsi
+
+* upravena stranka "task_detail.html" a doplneny zpetne prokliky na Homepage a Categories
 - vytvoreni prihlasovaciho okna (novy uzivatele se daji zatim pridavat pouze v /admin - registraci dodelam pozdeji)
 - zatim se jde jen prihlasit/odhlasit bez prirazeni ukolu, takze ukoly se zobrazuji porad stejne-
 -doplnim potom, chtel jsem provest push po mensich zmenach

@@ -1,12 +1,15 @@
-import uuid
-
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from datetime import timedelta
 
 
 def one_week_later():
-    return timezone.now() + timezone.timedelta(days=7)
+    return timezone.now() + timedelta(days=7)
+
+
+def tomorrow():
+    return timezone.now() + timedelta(days=1)
 
 
 class Task(models.Model):
@@ -39,10 +42,10 @@ class Task(models.Model):
     category = models.CharField(choices=CATEGORY_CHOICES, default="other", max_length=21)
     description = models.TextField(null=True, blank=True, max_length=1000)
     created = models.DateTimeField(auto_now_add=True)
-    priority = models.CharField(choices=PRIORITY_CHOICES, default="normal", max_length=15)  # there must be a "max_lenght" attribute
-    dead_line = models.DateField(default=one_week_later)
+    priority = models.CharField(choices=PRIORITY_CHOICES, default="normal", max_length=15)  # there must be a "max_length" attribute
+    to_do = models.DateTimeField(default=tomorrow)
+    dead_line = models.DateTimeField(default=one_week_later)
     completed = models.BooleanField(default=False)
-
 
     def __str__(self):
         return self.name[:30]

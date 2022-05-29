@@ -22,37 +22,37 @@
     <br><br>
   </div>
 
-    {% for task in all_tasks %}
-        <div>
-        {% if task.completed %}
+  {#    <table>#}
+  {% for task in all_tasks %}
+    <div>
+      {% if task.completed %}
         <div class="line">
-            <i><s><span>{{ task.name|slice:":25" }} - {{ task.priority }} - {{ task.dead_line }} - {{ task.category }}</span></s></i>
+          <i><s><span>:) {{ task.name|slice:":25" }} - To do: {{ task.to_do|date:'d.m Y' }} - Dead line: {{ task.dead_line|date:'d.m Y' }} - {{ task.category }} - {{ task.priority }}</span></s></i>
         </div>
-            {% else %}
-            <div class="line">
-            <span>{{ task.name|slice:":25" }} - {{ task.priority }} - To do by {{ task.dead_line }} - {{ task.category }}</span>
-            </div>
-        {% endif %}
-            {% if task.completed == False %}
-                <div class="line">
-                <form action="{% url "task_done" task.id %}" method="post">
-                                {% csrf_token %}
-                    <input type="submit" value="finished">
-                </form>
-                </div>
-
-            {% else %}
-                <div class="line">
-                <form action="{% url "task_done" task.id %}" method="post">
-                                {% csrf_token %}
-                    <input type="submit" value="unfinished">
-                </form>
-                </div>
-            {% endif %}
-        <a href="{% url "delete_task" task.id %}">delete</a>
+      {% else %}
+        <div class="line">
+          <span>* {{ task.name|slice:":25" }} - To do: {{ task.to_do|date:'d.m Y' }} - Dead line: {{ task.dead_line|date:'d.m Y' }} - {{ task.category }} - {{ task.priority }}</span>
+        </div>
+      {% endif %}
+      {% if task.completed == False %}
+        <div class="line">
+          <form action="{% url "task_done" task.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="finished">
+          </form>
         </div>
 
-    {% endfor %}
-
+      {% else %}
+        <div class="line">
+          <form action="{% url "task_done" task.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="unfinished">
+          </form>
+        </div>
+      {% endif %}
+      <a href="{% url "delete_task" task.id %}">delete</a>
+    </div>
+  {% endfor %}
+  {#    </table>#}
 
 {% endblock form %}
