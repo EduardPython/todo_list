@@ -25,7 +25,7 @@ class TaskCreateView(CreateView):
     def get_context_data(self, *args, **kwargs):
         context = super(TaskCreateView, self).get_context_data(**kwargs)
         context.update({
-            'all_tasks': Task.objects.all().order_by("completed", "dead_line", "priority", "-created"),
+            'all_tasks': Task.objects.all().order_by("completed", "-created"),
         })
         return context
 

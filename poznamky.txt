@@ -89,3 +89,5 @@ Tady zkusím psát všechny jednotlivé kroky co se na todo_list udělají
 - vytvoreni login.html
 - pridani odkazu do tesk_create.html
 - dva nove linky v urls
+
+- vymazáno "dead_line", "priority" z TaskCreateView (položka "all_tasks") protože to radilo ukoly obracene
