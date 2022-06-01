@@ -1,7 +1,9 @@
 from django.shortcuts import redirect
+from django.template.response import TemplateResponse
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
 from django.urls import reverse_lazy
 
+# from .forms import DateTimeForm
 from .models import Task
 
 from django.contrib.auth.views import LoginView
@@ -29,6 +31,11 @@ class TaskCreateView(CreateView):
         })
         return context
 
+    # def post(self, request, *args, **kwargs):
+    #     bounded_form = DateTimeForm(request.POST)
+    #     if not bounded_form.is_valid():
+    #         return TemplateResponse(request, 'base/task_create.html', context={'date_time': DateTimeForm)})
+    #         # return TemplateResponse(request, 'contact.html', context={'nic': 'nic'})
 
 class TaskDetailView(DetailView):
     model = Task

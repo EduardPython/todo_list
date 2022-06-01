@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from datetime import timedelta
 
+# from base import forms
+# from base.forms import CustomDateInput
+
 
 def one_week_later():
     return timezone.now() + timedelta(days=7)
@@ -44,6 +47,9 @@ class Task(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     priority = models.CharField(choices=PRIORITY_CHOICES, default="normal", max_length=15)  # there must be a "max_length" attribute
     to_do = models.DateTimeField(default=tomorrow)
+    # # to_do = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'date'}))
+    # to_do = forms.CustomDateInput(widget=CustomDateInput())
+    # to_do = forms.DateTimeForm()
     dead_line = models.DateTimeField(default=one_week_later)
     completed = models.BooleanField(default=False)
 

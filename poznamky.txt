@@ -80,6 +80,7 @@ Tady zkusím psát všechny jednotlivé kroky co se na todo_list udělají
 * upraven format datatime u "to_do" a "dead_line" z US formatu na citelnejsi
 
 * upravena stranka "task_detail.html" a doplneny zpetne prokliky na Homepage a Categories
+
 - vytvoreni prihlasovaciho okna (novy uzivatele se daji zatim pridavat pouze v /admin - registraci dodelam pozdeji)
 - zatim se jde jen prihlasit/odhlasit bez prirazeni ukolu, takze ukoly se zobrazuji porad stejne-
 -doplnim potom, chtel jsem provest push po mensich zmenach
