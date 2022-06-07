@@ -7,6 +7,7 @@ from .models import Task
 from .forms import TaskForm
 
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class TaskLoginView(LoginView):
@@ -18,7 +19,7 @@ class TaskLoginView(LoginView):
         return reverse_lazy("tasks")
 
 
-class TaskCreateView(CreateView):
+class TaskCreateView(LoginRequiredMixin, CreateView):
     template_name = "base/task_create.html"
     model = Task
     form_class = TaskForm
@@ -26,12 +27,12 @@ class TaskCreateView(CreateView):
     def get_context_data(self, *args, **kwargs):
         context = super(TaskCreateView, self).get_context_data(**kwargs)
         context.update({
-            'all_tasks': Task.objects.all().order_by("completed", "-created"),
+            'all_tasks': Task.objects.all().filter(user=self.request.user).order_by("completed", "-created"),
         })
         return context
 
 
-class TaskDetailView(DetailView):
+class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Task
     template_name = "base/task_detail.html"
 
@@ -40,7 +41,7 @@ class TaskDetailView(DetailView):
         return context
 
 
-class CategoryListView(ListView):
+class CategoryListView(LoginRequiredMixin, ListView):
     queryset = Task.objects.all()
     template_name = "base/categories.html"
 
@@ -58,7 +59,7 @@ class CategoryListView(ListView):
         return context
 
 
-class TaskDone(DetailView):
+class TaskDone(LoginRequiredMixin, DetailView):
     model = Task
     template_name = "base/task_create.html"
 
@@ -74,6 +75,6 @@ class TaskDone(DetailView):
             return redirect('tasks', )
 
 
-class DeleteTaskView(DeleteView):
+class DeleteTaskView(LoginRequiredMixin, DeleteView):
     model = Task
     success_url = reverse_lazy("tasks")

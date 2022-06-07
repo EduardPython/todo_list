@@ -5,7 +5,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path("login/", TaskLoginView.as_view(), name="login"),
-    path("logout/", LogoutView.as_view(next_page="login"), name="logout"),
+    path("logout/", LogoutView.as_view(next_page="tasks"), name="logout"),
 
     path("", TaskCreateView.as_view(), name="tasks"),
     path("categories/", CategoryListView.as_view(), name="categories"),

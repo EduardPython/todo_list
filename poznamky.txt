@@ -89,7 +89,7 @@ Tady zkusím psát všechny jednotlivé kroky co se na todo_list udělají
 - vytvoreni TaskLoginView
 - vytvoreni login.html
 - pridani odkazu do tesk_create.html
-- dva nove linky v urls
+- dva nove linky v urls (Logout se dá použít rovnou v urls.py :)
 
 - vymazáno "dead_line", "priority" z TaskCreateView (položka "all_tasks") protože to radilo ukoly obracene
 
@@ -104,3 +104,10 @@ v TaskForm se vlastně jen přepíšou pole které chceme jinak (to_do, dead_lin
 to byl docela chyták
 Pak ve třídy Meta se dají excludnout věci co nechceme vyplňovat, nebo naopak tam dáme jen věci co chceme (fields = "to_do", "name"...)
 
+7.6.2022 2.část
+- aby se nepřihlášenéému uživateli nezobrazil obsah, stačí importovat LoginRequiredMixin a přidat je k dědění do views
+které chceme nepřihlášeným zablokovat
+
+- když někdo nepřihlášený příjde na stránku používající "loginrequiredmixin" můžeme v settings.py nastavit
+  LOGIN_URL = "login", k přesměrování na přihlašovací formulář. Jinak django zahlásí prosté "page not found error 404"
+- takže "loginrequiremixin" přidáno do všech views

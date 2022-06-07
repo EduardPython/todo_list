@@ -28,7 +28,7 @@ class Task(models.Model):
         (CATEGORY_OTHER, "Other")
     )
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=25)
     category = models.CharField(choices=CATEGORY_CHOICES, default="other", max_length=21)
     description = models.TextField(null=True, blank=True, max_length=1000)
