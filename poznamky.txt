@@ -93,4 +93,14 @@ Tady zkusím psát všechny jednotlivé kroky co se na todo_list udělají
 
 - vymazáno "dead_line", "priority" z TaskCreateView (položka "all_tasks") protože to radilo ukoly obracene
 
+7.6.2022
+-v models.py změna typů polí, to_do a dead_line (když tam budeme chtít i čas, budeme muset vytvořit nové pole pro čas,
+např. to_do_time a dead_line_time. Neuměl jsem to vměstnat do jednoho formu. Ale to už půjde myslím si dodělat snadno)
+
+-ve views se vyplňování dat přesunulo do TaskForms, takže jen přesměrování "form_class = TaskForm"
+
+- forms.py. No co k tomu říct. Okopírováno z hollymovies a stackoverflow + přesunuty Edovi funkce z models.py
+v TaskForm se vlastně jen přepíšou pole které chceme jinak (to_do, dead_line) a místo "default" se tu používá "initial"!!
+to byl docela chyták
+Pak ve třídy Meta se dají excludnout věci co nechceme vyplňovat, nebo naopak tam dáme jen věci co chceme (fields = "to_do", "name"...)
 
