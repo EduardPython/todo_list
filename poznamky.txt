@@ -92,3 +92,5 @@ Tady zkusím psát všechny jednotlivé kroky co se na todo_list udělají
 - dva nove linky v urls
 
 - vymazáno "dead_line", "priority" z TaskCreateView (položka "all_tasks") protože to radilo ukoly obracene
+
+

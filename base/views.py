@@ -3,8 +3,8 @@ from django.template.response import TemplateResponse
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
 from django.urls import reverse_lazy
 
-# from .forms import DateTimeForm
 from .models import Task
+from .forms import TaskForm
 
 from django.contrib.auth.views import LoginView
 
@@ -21,8 +21,7 @@ class TaskLoginView(LoginView):
 class TaskCreateView(CreateView):
     template_name = "base/task_create.html"
     model = Task
-    fields = ["category", "name", "description", "priority", "to_do", "dead_line"]
-    success_url = reverse_lazy("tasks")
+    form_class = TaskForm
 
     def get_context_data(self, *args, **kwargs):
         context = super(TaskCreateView, self).get_context_data(**kwargs)
@@ -31,11 +30,6 @@ class TaskCreateView(CreateView):
         })
         return context
 
-    # def post(self, request, *args, **kwargs):
-    #     bounded_form = DateTimeForm(request.POST)
-    #     if not bounded_form.is_valid():
-    #         return TemplateResponse(request, 'base/task_create.html', context={'date_time': DateTimeForm)})
-    #         # return TemplateResponse(request, 'contact.html', context={'nic': 'nic'})
 
 class TaskDetailView(DetailView):
     model = Task
@@ -82,5 +76,4 @@ class TaskDone(DetailView):
 
 class DeleteTaskView(DeleteView):
     model = Task
-    #  template_name = "base/task_confirm_delete.html"
     success_url = reverse_lazy("tasks")

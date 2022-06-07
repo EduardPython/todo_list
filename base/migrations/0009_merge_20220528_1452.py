@@ -6,7 +6,6 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0008_alter_task_dead_line_alter_task_priority'),
         ('base', '0008_rename_description_task_name'),
     ]
 

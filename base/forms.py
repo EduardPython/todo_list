@@ -1,4 +1,8 @@
+from datetime import timedelta
 from django import forms
+from django.utils import timezone
+
+from .models import Task
 
 
 class CustomDateInput(forms.DateInput):
@@ -7,5 +11,19 @@ class CustomDateInput(forms.DateInput):
         super(CustomDateInput, self).__init__(*args, **kwargs)
 
 
-class DateTimeForm(forms.Form):
-    date_time = forms.DateField(widget=CustomDateInput())
+def tomorrow():
+    return timezone.now() + timedelta(days=1)
+
+
+def one_week_later():
+    return timezone.now() + timedelta(days=7)
+
+
+class TaskForm(forms.ModelForm):
+
+    to_do = forms.DateField(widget=CustomDateInput(), initial=tomorrow)
+    dead_line = forms.DateField(widget=CustomDateInput(), initial=one_week_later)
+
+    class Meta:
+        model = Task
+        exclude = ["user", "created", "completed", ]       # there must be either "exclude" or "fields"

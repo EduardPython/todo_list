@@ -10,10 +10,4 @@ class Migration(migrations.Migration):
         ('base', '0013_alter_task_description'),
     ]
 
-    operations = [
-        migrations.AddField(
-            model_name='task',
-            name='to_do',
-            field=models.DateTimeField(default=base.models.tomorrow),
-        ),
-    ]
+
