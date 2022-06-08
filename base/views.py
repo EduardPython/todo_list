@@ -31,6 +31,10 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
         })
         return context
 
+    def form_valid(self, form):     # this join created task to actual user
+        form.instance.user = self.request.user
+        return super(TaskCreateView, self).form_valid(form)
+
 
 class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Task

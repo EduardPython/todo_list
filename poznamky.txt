@@ -111,3 +111,9 @@ které chceme nepřihlášeným zablokovat
 - když někdo nepřihlášený příjde na stránku používající "loginrequiredmixin" můžeme v settings.py nastavit
   LOGIN_URL = "login", k přesměrování na přihlašovací formulář. Jinak django zahlásí prosté "page not found error 404"
 - takže "loginrequiremixin" přidáno do všech views
+
+8.6.2022
+- Spraven výpis úkolů (přiřazování id uživatele k právě vytvořenému úkolu) Chybělo:
+ve views do TaskCreateView přidat funkci def form_valid
+- Musí se to tam přidat protože data předává form(TaskForm) a ne přímo view(TaskCreateView)
+- teď se přiřazují jednotlivé úkoly právě přihlášenému uživateli
