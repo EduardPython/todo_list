@@ -3,10 +3,11 @@ from django.template.response import TemplateResponse
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
 from django.urls import reverse_lazy
 
-# from .forms import DateTimeForm
 from .models import Task
+from .forms import TaskForm
 
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class TaskLoginView(LoginView):
@@ -18,26 +19,24 @@ class TaskLoginView(LoginView):
         return reverse_lazy("tasks")
 
 
-class TaskCreateView(CreateView):
+class TaskCreateView(LoginRequiredMixin, CreateView):
     template_name = "base/task_create.html"
     model = Task
-    fields = ["category", "name", "description", "priority", "to_do", "dead_line"]
-    success_url = reverse_lazy("tasks")
+    form_class = TaskForm
 
     def get_context_data(self, *args, **kwargs):
         context = super(TaskCreateView, self).get_context_data(**kwargs)
         context.update({
-            'all_tasks': Task.objects.all().order_by("completed", "-created"),
+            'all_tasks': Task.objects.all().filter(user=self.request.user).order_by("completed", "-created"),
         })
         return context
 
-    # def post(self, request, *args, **kwargs):
-    #     bounded_form = DateTimeForm(request.POST)
-    #     if not bounded_form.is_valid():
-    #         return TemplateResponse(request, 'base/task_create.html', context={'date_time': DateTimeForm)})
-    #         # return TemplateResponse(request, 'contact.html', context={'nic': 'nic'})
+    def form_valid(self, form):     # this join created task to actual user
+        form.instance.user = self.request.user
+        return super(TaskCreateView, self).form_valid(form)
 
-class TaskDetailView(DetailView):
+
+class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Task
     template_name = "base/task_detail.html"
 
@@ -46,7 +45,7 @@ class TaskDetailView(DetailView):
         return context
 
 
-class CategoryListView(ListView):
+class CategoryListView(LoginRequiredMixin, ListView):
     queryset = Task.objects.all()
     template_name = "base/categories.html"
 
@@ -64,7 +63,7 @@ class CategoryListView(ListView):
         return context
 
 
-class TaskDone(DetailView):
+class TaskDone(LoginRequiredMixin, DetailView):
     model = Task
     template_name = "base/task_create.html"
 
@@ -80,7 +79,6 @@ class TaskDone(DetailView):
             return redirect('tasks', )
 
 
-class DeleteTaskView(DeleteView):
+class DeleteTaskView(LoginRequiredMixin, DeleteView):
     model = Task
-    #  template_name = "base/task_confirm_delete.html"
     success_url = reverse_lazy("tasks")

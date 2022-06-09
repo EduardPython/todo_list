@@ -89,6 +89,31 @@ Tady zkusím psát všechny jednotlivé kroky co se na todo_list udělají
 - vytvoreni TaskLoginView
 - vytvoreni login.html
 - pridani odkazu do tesk_create.html
-- dva nove linky v urls
+- dva nove linky v urls (Logout se dá použít rovnou v urls.py :)
 
 - vymazáno "dead_line", "priority" z TaskCreateView (položka "all_tasks") protože to radilo ukoly obracene
+
+7.6.2022
+-v models.py změna typů polí, to_do a dead_line (když tam budeme chtít i čas, budeme muset vytvořit nové pole pro čas,
+např. to_do_time a dead_line_time. Neuměl jsem to vměstnat do jednoho formu. Ale to už půjde myslím si dodělat snadno)
+
+-ve views se vyplňování dat přesunulo do TaskForms, takže jen přesměrování "form_class = TaskForm"
+
+- forms.py. No co k tomu říct. Okopírováno z hollymovies a stackoverflow + přesunuty Edovi funkce z models.py
+v TaskForm se vlastně jen přepíšou pole které chceme jinak (to_do, dead_line) a místo "default" se tu používá "initial"!!
+to byl docela chyták
+Pak ve třídy Meta se dají excludnout věci co nechceme vyplňovat, nebo naopak tam dáme jen věci co chceme (fields = "to_do", "name"...)
+
+7.6.2022 2.část
+- aby se nepřihlášenéému uživateli nezobrazil obsah, stačí importovat LoginRequiredMixin a přidat je k dědění do views
+které chceme nepřihlášeným zablokovat
+
+- když někdo nepřihlášený příjde na stránku používající "loginrequiredmixin" můžeme v settings.py nastavit
+  LOGIN_URL = "login", k přesměrování na přihlašovací formulář. Jinak django zahlásí prosté "page not found error 404"
+- takže "loginrequiremixin" přidáno do všech views
+
+8.6.2022
+- Spraven výpis úkolů (přiřazování id uživatele k právě vytvořenému úkolu) Chybělo:
+ve views do TaskCreateView přidat funkci def form_valid
+- Musí se to tam přidat protože data předává form(TaskForm) a ne přímo view(TaskCreateView)
+- teď se přiřazují jednotlivé úkoly právě přihlášenému uživateli

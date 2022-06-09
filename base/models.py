@@ -1,18 +1,6 @@
 from django.db import models
+from django.shortcuts import resolve_url
 from django.contrib.auth.models import User
-from django.utils import timezone
-from datetime import timedelta
-
-# from base import forms
-# from base.forms import CustomDateInput
-
-
-def one_week_later():
-    return timezone.now() + timedelta(days=7)
-
-
-def tomorrow():
-    return timezone.now() + timedelta(days=1)
 
 
 class Task(models.Model):
@@ -40,21 +28,18 @@ class Task(models.Model):
         (CATEGORY_OTHER, "Other")
     )
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=25)
     category = models.CharField(choices=CATEGORY_CHOICES, default="other", max_length=21)
     description = models.TextField(null=True, blank=True, max_length=1000)
     created = models.DateTimeField(auto_now_add=True)
     priority = models.CharField(choices=PRIORITY_CHOICES, default="normal", max_length=15)  # there must be a "max_length" attribute
-    to_do = models.DateTimeField(default=tomorrow)
-    # # to_do = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'date'}))
-    # to_do = forms.CustomDateInput(widget=CustomDateInput())
-    # to_do = forms.DateTimeForm()
-    dead_line = models.DateTimeField(default=one_week_later)
+    to_do = models.DateField()
+    dead_line = models.DateField()
     completed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name[:30]
 
-    # class Meta:
-    #     ordering = ["completed"]
+    def get_absolute_url(self):
+        return resolve_url("tasks")
