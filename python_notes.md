@@ -23,6 +23,16 @@
 - vytvoreni base.html jako základu pro ostatní podstránky. tady bude hlavička se všemi "must have" html věcmi
 - v homepage.html uprava na {% extends %}, odteď všechny html "rozšiřují" základní base.html
 
+# VIRTUALENVWRAPPER
+- create VE:
+>mkvirtualenv name_of_new_ve (location: user/Envs)
+- activate VE:
+>workon name_of_existing_ve
+- deactivate: 
+>deactivate
+- list of ve:
+>lsvirtualenv
+
 # CSS
 - vytvořen soubor base.css ve složce static/css/
 - import a pridani urlpatterns do urls.py
@@ -42,9 +52,11 @@ které chceme nepřihlášeným zablokovat
  >git push -u origin name_of_branch
 - tím se na githubu vytvoří branch
 
-- po stáhnutí změn z githubu 
+- po stáhnutí změn z githubu: 
  >git pull
 - se stáhnou i všechny větve, mezi kterými můžu přepínat:
  >git checkout name_of_branch
 - zobrazení větve na která je aktivní:
  >git status
+- seznam větví:
+ >git branch
