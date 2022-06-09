@@ -27,11 +27,11 @@
     <div>
       {% if task.completed %}
         <div class="line">
-          <i><s><span>:) {{ task.name|slice:":25" }} - To do: {{ task.to_do|date:'d.m Y' }} - Dead line: {{ task.dead_line|date:'d.m Y' }} - {{ task.category }} - {{ task.priority }}</span></s></i>
+          <i><s><span>:) <a class="nodiffcolor" href={% url "task_detail" task.id %}>{{ task.name|slice:":25" }}</a> - To do: {{ task.to_do|date:'d.m Y' }} - Dead line: {{ task.dead_line|date:'d.m Y' }} - {{ task.category }} - {{ task.priority }}</span></s></i>
         </div>
       {% else %}
         <div class="line">
-          <span>* {{ task.name|slice:":25" }} - To do: {{ task.to_do|date:'d.m Y' }} - Dead line: {{ task.dead_line|date:'d.m Y' }} - {{ task.category }} - {{ task.priority }}</span>
+          <span>* <a class="nodiffcolor" href={% url "task_detail" task.id %}>{{ task.name|slice:":25" }}</a> - To do: {{ task.to_do|date:'d.m Y' }} - Dead line: {{ task.dead_line|date:'d.m Y' }} - {{ task.category }} - {{ task.priority }}</span>
         </div>
       {% endif %}
       {% if task.completed == False %}
