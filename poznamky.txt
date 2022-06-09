@@ -117,3 +117,7 @@ které chceme nepřihlášeným zablokovat
 ve views do TaskCreateView přidat funkci def form_valid
 - Musí se to tam přidat protože data předává form(TaskForm) a ne přímo view(TaskCreateView)
 - teď se přiřazují jednotlivé úkoly právě přihlášenému uživateli
+
+9.6.2022
+- jméno úkolu je teď "link" na detail úkolu
+- po kliknutí na něj se nezmění barva odkazu (class="nodiffcolor")
