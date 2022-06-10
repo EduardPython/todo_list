@@ -1,14 +1,14 @@
 {% extends "base/base.html" %}
 
 {% block form %}
-    <h3>hello, {{ user }}</h3>
-    <div>
+  <h3>hello, {{ user }}</h3>
+  <div>
     {% if request.user.is_authenticated %}
-        <a href="{% url "logout" %}">Logout</a>
+      <a href="{% url "logout" %}">Logout</a>
     {% else %}
-        <a href="{% url "login" %}">Login</a>
+      <a href="{% url "login" %}">Login</a>
     {% endif %}
-    </div>
+  </div>
   <a href="{% url 'categories' %}">Categories</a><br><br>
   <h4>CREATE A NEW TASK</h4>
   <div>
@@ -22,16 +22,23 @@
     <br><br>
   </div>
 
-  {#    <table>#}
+{#      <table>#}
   {% for task in all_tasks %}
     <div>
       {% if task.completed %}
         <div class="line">
-          <i><s><span>:) <a class="nodiffcolor" href={% url "task_detail" task.id %}>{{ task.name|slice:":25" }}</a> - To do: {{ task.to_do|date:'d.m Y' }} - Dead line: {{ task.dead_line|date:'d.m Y' }} - {{ task.category }} - {{ task.priority }}</span></s></i>
+          <i><s><span> <a class="nodiffcolor" href={% url "task_detail" task.id %}>{{ task.name|slice:":17" }}</a>
+            - <a class="discoloration" href={% url "categories" %}>{{ task.category }}</a><br>
+            To do: {{ task.to_do|date:'d.m Y' }} - Dead line: {{ task.dead_line|date:'d.m Y' }}
+          </span></s></i>
         </div>
       {% else %}
         <div class="line">
-          <span>* <a class="nodiffcolor" href={% url "task_detail" task.id %}>{{ task.name|slice:":25" }}</a> - To do: {{ task.to_do|date:'d.m Y' }} - Dead line: {{ task.dead_line|date:'d.m Y' }} - {{ task.category }} - {{ task.priority }}</span>
+          <span> <a class="nodiffcolor" href={% url "task_detail" task.id %}>{{ task.name|slice:":17" }}</a><br>
+            To do: {{ task.to_do|date:'d.m Y' }}<br>
+            Dead line: {{ task.dead_line|date:'d.m Y' }}<br>
+            {{ task.priority }} - <a class="discoloration" href={% url "categories" %}>{{ task.category }}</a><br><br>
+          </span>
         </div>
       {% endif %}
       {% if task.completed == False %}
@@ -53,6 +60,6 @@
       <a href="{% url "delete_task" task.id %}">delete</a>
     </div>
   {% endfor %}
-  {#    </table>#}
+{#      </table>#}
 
 {% endblock form %}
