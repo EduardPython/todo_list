@@ -15,7 +15,7 @@ urlpatterns = [
     path("task_detail/<int:pk>", TaskDetailView.as_view(), name="task_detail"),
     path("task_delete/<int:pk>/", DeleteTaskView.as_view(), name="delete_task"),
     # path("/g", TaskCreateView.as_view(), name="task_create"),
-    path("list_by_categories/<str:category>", ListByCategories.as_view(), name="list_by_categories"),
+    path("list_by_categories/<str:category>/", ListByCategories.as_view(), name="list_by_categories"),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

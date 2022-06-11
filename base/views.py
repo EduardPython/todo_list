@@ -86,12 +86,17 @@ class DeleteTaskView(LoginRequiredMixin, DeleteView):
 
 class ListByCategories(LoginRequiredMixin, ListView):
     template_name = "base/list_by_categories.html"
-    queryset = Task.objects.all()
+
+    def get_queryset(self):
+        category = self.kwargs['category']
+        return Task.objects.filter(category=category)
 
     def get_context_data(self, *args, **kwargs):
         context = super(ListByCategories, self).get_context_data(*args, **kwargs)
         extra_context = {
-            "category": Task.objects.filter(category=Task.category).order_by("-dead_line"),
+            "name_of_category": self.kwargs["category"],
         }
         context.update(extra_context)
         return context
+
+
