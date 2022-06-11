@@ -1,0 +1,8 @@
+{% extends "base/base.html" %}
+
+{% block form %}
+    <h2>list of category: {{ name_of_category }}</h2>
+    {% for task in object_list %}
+    <p>{{ task.name }}</p>
+    {% endfor %}
+{% endblock %}
