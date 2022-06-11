@@ -57,7 +57,7 @@ class CategoryListView(LoginRequiredMixin, ListView):
             "garden": Task.objects.filter(category=Task.CATEGORY_GARDEN).order_by("-dead_line"),
             "household": Task.objects.filter(category=Task.CATEGORY_HOUSEHOLD).order_by("-dead_line"),
             "other": Task.objects.filter(category=Task.CATEGORY_OTHER).order_by("-dead_line"),
-            'number_of_tasks': Task.objects.all().count()
+            'number_of_tasks': Task.objects.all().count(),
         }
         context.update(extra_context)
         return context
@@ -82,3 +82,16 @@ class TaskDone(LoginRequiredMixin, DetailView):
 class DeleteTaskView(LoginRequiredMixin, DeleteView):
     model = Task
     success_url = reverse_lazy("tasks")
+
+
+class ListByCategories(LoginRequiredMixin, ListView):
+    template_name = "base/list_by_categories.html"
+    queryset = Task.objects.all()
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ListByCategories, self).get_context_data(*args, **kwargs)
+        extra_context = {
+            "category": Task.objects.filter(category=Task.category).order_by("-dead_line"),
+        }
+        context.update(extra_context)
+        return context
