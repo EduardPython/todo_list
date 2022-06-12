@@ -1,6 +1,6 @@
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
-from django.views.generic import ListView, CreateView, DetailView, DeleteView
+from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
 from django.urls import reverse_lazy
 
 from .models import Task
@@ -98,5 +98,12 @@ class ListByCategories(LoginRequiredMixin, ListView):
         }
         context.update(extra_context)
         return context
+
+
+class TaskEditView(UpdateView):
+    template_name = "base/task_edit.html"
+    form_class = TaskForm
+    model = Task
+
 
 

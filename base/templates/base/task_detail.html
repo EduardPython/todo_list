@@ -7,4 +7,6 @@
   <pre>{{ object.description }}</pre><br>
   To do: <br> {{ object.to_do|date:'d.m Y' }}<br><br>
   Dead line: <br> {{ object.dead_line|date:'d.m Y' }}<br><br>
+    <a href="{% url "task_edit" task.id %}">Edit task</a><br>
+    <a href="{% url "delete_task" task.id %}">delete</a>
 {% endblock body %}

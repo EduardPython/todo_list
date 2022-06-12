@@ -28,3 +28,10 @@ class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         exclude = ["user", "created", "completed", ]       # there must be either "exclude" or "fields"
+
+
+# class TaskEditForm(forms.ModelForm):
+#
+#     class Meta:
+#         model = Task
+#         include = "__all__"
