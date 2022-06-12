@@ -1,10 +1,13 @@
-from django.shortcuts import redirect
-from django.template.response import TemplateResponse
-from django.views.generic import ListView, CreateView, DetailView, DeleteView
+
+from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
 from django.urls import reverse_lazy
 
+from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from django.contrib import messages
+
 from .models import Task
-from .forms import TaskForm
+from .forms import TaskForm, NewUserForm
 
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -31,7 +34,7 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
         })
         return context
 
-    def form_valid(self, form):     # this join created task to actual user
+    def form_valid(self, form):  # this join created task to actual user
         form.instance.user = self.request.user
         return super(TaskCreateView, self).form_valid(form)
 
@@ -89,7 +92,7 @@ class ListByCategories(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         category = self.kwargs['category']
-        return Task.objects.filter(category=category)
+        return Task.objects.filter(category=category, user=self.request.user)
 
     def get_context_data(self, *args, **kwargs):
         context = super(ListByCategories, self).get_context_data(*args, **kwargs)
@@ -100,3 +103,20 @@ class ListByCategories(LoginRequiredMixin, ListView):
         return context
 
 
+class TaskEditView(UpdateView):
+    template_name = "base/task_edit.html"
+    form_class = TaskForm
+    model = Task
+
+
+def register_request(request):
+    if request.method == "POST":
+        form = NewUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, "Registration successful.")
+            return redirect("tasks")
+        messages.error(request, "Unsuccessful registration. Invalid information.")
+    form = NewUserForm()
+    return render(request=request, template_name="base/register.html", context={"register_form": form})
