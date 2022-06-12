@@ -36,14 +36,14 @@
         <div class="line">
           <i><s><span> <a class="nodiffcolor" href={% url "task_detail" task.id %}>{{ task.name|slice:":17" }}</a>
             - <a class="discoloration" href={% url "list_by_categories" task.category %}>{{ task.category }}</a><br>
-            To do: {{ task.to_do|date:'d.m Y' }} - Dead line: {{ task.dead_line|date:'d.m Y' }}
+            To do: {{ task.to_do|date:'d.m.Y' }} - Dead line: {{ task.dead_line|date:'d.m.Y' }}
           </span></s></i>
         </div>
       {% else %}
         <div class="line">
           <span> <a class="nodiffcolor" href={% url "task_detail" task.id %}>{{ task.name|slice:":17" }}</a><br>
-            To do: {{ task.to_do|date:'d.m Y' }}<br>
-            Dead line: {{ task.dead_line|date:'d.m Y' }}<br>
+            To do: {{ task.to_do|date:'d.m.Y' }}, {{ task.to_do_time|time:'H:i' }}<br>
+            Dead line: {{ task.dead_line|date:'d.m.Y' }}, {{ task.to_do_time|time:'H:i' }}<br>
             {{ task.priority }} - <a class="discoloration" href={% url "list_by_categories" task.category %}>{{ task.category }}</a><br><br>
           </span>
         </div>

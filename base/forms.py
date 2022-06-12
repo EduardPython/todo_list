@@ -14,6 +14,12 @@ class CustomDateInput(forms.DateInput):
         super(CustomDateInput, self).__init__(*args, **kwargs)
 
 
+class CustomTimeInput(forms.DateTimeInput):
+    def __init__(self, *args, **kwargs):
+        kwargs.update({'attrs': {'type': 'time'}})
+        super(CustomTimeInput, self).__init__(*args, **kwargs)
+
+
 def tomorrow():
     return timezone.now() + timedelta(days=1)
 
@@ -24,7 +30,9 @@ def one_week_later():
 
 class TaskForm(forms.ModelForm):
     to_do = forms.DateField(widget=CustomDateInput(), initial=tomorrow)
+    to_do_time = forms.TimeField(widget=CustomTimeInput())
     dead_line = forms.DateField(widget=CustomDateInput(), initial=one_week_later)
+    dead_line_time = forms.TimeField(widget=CustomTimeInput())
 
     class Meta:
         model = Task

@@ -77,7 +77,7 @@ Tady zkusím psát všechny jednotlivé kroky co se na todo_list udělají
     - ve views.py doplneno pole "to_do" do "fields" v TaskCreateView
     - doplneno take do "task_create.html" a do "task_detail.html"
 
-* upraven format datatime u "to_do" a "dead_line" z US formatu na citelnejsi
+* upraven format datetime u "to_do" a "dead_line" z US formatu na citelnejsi
 
 * upravena stranka "task_detail.html" a doplneny zpetne prokliky na Homepage a Categories
 
@@ -126,3 +126,10 @@ ve views do TaskCreateView přidat funkci def form_valid
     -> pip install django-jazzmin
     - v settings.py INSTALLED_APPS pridana aplikace "jazzmin"
 
+* Pridany Timepicker do homepage a detailu
+    - v models.py vytvorena dve nova pole to_do_time a dead_line_time
+    - ve forms.py vytvorena class CustomTimeInput a definovana pole v class TaskForm
+    - v task_detail.html uprava data a casu
+    - v task_create.html uprava data a casu
+
+* Pridany user do base.html -> To do list - {{ user }}

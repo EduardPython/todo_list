@@ -3,8 +3,8 @@
 {% block form %}
     <a href="{% url "tasks" %}">Homepage</a><br>
     <a href="{% url 'categories' %}">Categories</a><br><br>
-    <h2>list of category: {{ name_of_category }}</h2>
+    <h2>List of category: {{ name_of_category.upper }}</h2>
     {% for task in object_list %}
-    <p>{{ task.name }}</p>
+    <p> * {{ task.name }}</p>
     {% endfor %}
 {% endblock %}
