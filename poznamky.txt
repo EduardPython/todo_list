@@ -121,3 +121,8 @@ ve views do TaskCreateView přidat funkci def form_valid
 9.6.2022
 - jméno úkolu je teď "link" na detail úkolu
 - po kliknutí na něj se nezmění barva odkazu (class="nodiffcolor")
+
+* Uprava admin site:
+    -> pip install django-jazzmin
+    - v settings.py INSTALLED_APPS pridana aplikace "jazzmin"
+
