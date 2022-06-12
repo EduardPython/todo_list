@@ -1,5 +1,7 @@
 from django.contrib.auth.views import LogoutView
 from django.urls import path
+
+from . import views
 from .views import TaskCreateView, CategoryListView, TaskDone, DeleteTaskView, TaskDetailView, TaskLoginView, \
     ListByCategories, TaskEditView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -7,6 +9,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path("login/", TaskLoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(next_page="tasks"), name="logout"),
+    path("register/", views.register_request, name="register"),
 
     path("", TaskCreateView.as_view(), name="tasks"),
     path("categories/", CategoryListView.as_view(), name="categories"),
