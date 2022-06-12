@@ -3,10 +3,12 @@
 {% block form %}
 
 
-	<h1>Register</h1>
+	<h1>Register a new user</h1>
 	<form method="POST">
 		{% csrf_token %}
-		{{ register_form }}
+	<table>
+      {{ register_form }}
+    </table>
 		<button type="submit">Register</button>
 	</form>
 	<p class="text-center">If you already have an account, <a href={% url "login" %}>login</a> instead.</p>

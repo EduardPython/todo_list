@@ -55,12 +55,12 @@ class CategoryListView(LoginRequiredMixin, ListView):
     def get_context_data(self, *args, **kwargs):
         context = super(CategoryListView, self).get_context_data(*args, **kwargs)
         extra_context = {
-            "family": Task.objects.filter(category=Task.CATEGORY_FAMILY).order_by("-dead_line"),
-            "work": Task.objects.filter(category=Task.CATEGORY_WORK).order_by("-dead_line"),
-            "garden": Task.objects.filter(category=Task.CATEGORY_GARDEN).order_by("-dead_line"),
-            "household": Task.objects.filter(category=Task.CATEGORY_HOUSEHOLD).order_by("-dead_line"),
-            "other": Task.objects.filter(category=Task.CATEGORY_OTHER).order_by("-dead_line"),
-            'number_of_tasks': Task.objects.all().count(),
+            "family": Task.objects.filter(category=Task.CATEGORY_FAMILY, user=self.request.user).order_by("-dead_line"),
+            "work": Task.objects.filter(category=Task.CATEGORY_WORK, user=self.request.user).order_by("-dead_line"),
+            "garden": Task.objects.filter(category=Task.CATEGORY_GARDEN, user=self.request.user).order_by("-dead_line"),
+            "household": Task.objects.filter(category=Task.CATEGORY_HOUSEHOLD, user=self.request.user).order_by("-dead_line"),
+            "other": Task.objects.filter(category=Task.CATEGORY_OTHER, user=self.request.user).order_by("-dead_line"),
+            'number_of_tasks': Task.objects.all().filter(user=self.request.user).count(),
         }
         context.update(extra_context)
         return context
