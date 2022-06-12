@@ -89,7 +89,7 @@ class ListByCategories(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         category = self.kwargs['category']
-        return Task.objects.filter(category=category)
+        return Task.objects.filter(category=category, user=self.request.user)
 
     def get_context_data(self, *args, **kwargs):
         context = super(ListByCategories, self).get_context_data(*args, **kwargs)
