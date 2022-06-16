@@ -1,7 +1,17 @@
 body {
     background: #e8c576;
-    text-align: justify;
+    text-align: center;
 }
+
+
+
+.head {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
 
 .line {
     display: inline-flex;

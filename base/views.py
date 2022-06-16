@@ -1,5 +1,5 @@
-
-from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
+import requests
+from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView, TemplateView
 from django.urls import reverse_lazy
 
 from django.shortcuts import render, redirect
@@ -22,6 +22,23 @@ class TaskLoginView(LoginView):
         return reverse_lazy("tasks")
 
 
+def get_btc_price():
+    response = requests.get('https://api.coindesk.com/v1/bpi/currentprice.json')
+    data = response.json()
+    return data["bpi"]["USD"]["rate"][:6]
+
+
+class BaseView(TemplateView):
+    template_name = "base/base.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(BaseView, self).get_context_data(**kwargs)
+        context.update({
+            "btc_price": get_btc_price(),
+        })
+        return context
+
+
 class TaskCreateView(LoginRequiredMixin, CreateView):
     template_name = "base/task_create.html"
     model = Task
@@ -30,7 +47,8 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
     def get_context_data(self, *args, **kwargs):
         context = super(TaskCreateView, self).get_context_data(**kwargs)
         context.update({
-            'all_tasks': Task.objects.all().filter(user=self.request.user).order_by("completed", "-created"),
+            "all_tasks": Task.objects.all().filter(user=self.request.user).order_by("completed", "-created"),
+            "btc_price": get_btc_price()
         })
         return context
 
