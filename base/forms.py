@@ -1,4 +1,5 @@
 from datetime import timedelta
+import datetime
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -14,7 +15,7 @@ class CustomDateInput(forms.DateInput):
         super(CustomDateInput, self).__init__(*args, **kwargs)
 
 
-class CustomTimeInput(forms.DateTimeInput):
+class CustomTimeInput(forms.TimeInput):
     def __init__(self, *args, **kwargs):
         kwargs.update({'attrs': {'type': 'time'}})
         super(CustomTimeInput, self).__init__(*args, **kwargs)
@@ -30,9 +31,9 @@ def one_week_later():
 
 class TaskForm(forms.ModelForm):
     to_do = forms.DateField(widget=CustomDateInput(), initial=tomorrow)
-    to_do_time = forms.TimeField(widget=CustomTimeInput())
+    to_do_time = forms.TimeField(widget=CustomTimeInput(), initial=datetime.time(23, 59))
     dead_line = forms.DateField(widget=CustomDateInput(), initial=one_week_later)
-    dead_line_time = forms.TimeField(widget=CustomTimeInput())
+    dead_line_time = forms.TimeField(widget=CustomTimeInput(), initial=datetime.time(23, 59))
 
     class Meta:
         model = Task
