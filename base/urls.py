@@ -19,6 +19,7 @@ urlpatterns = [
     path("task_delete/<int:pk>/", DeleteTaskView.as_view(), name="delete_task"),
     # path("/g", TaskCreateView.as_view(), name="task_create"),
     path("list_by_categories/<str:category>/", ListByCategories.as_view(), name="list_by_categories"),
+    path("categories/<str:category>/", ListByCategories.as_view(), name="list_by_categories"),
     path("task_edit/<int:pk>", TaskEditView.as_view(), name="task_edit"),
 ]
 

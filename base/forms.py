@@ -31,9 +31,9 @@ def one_week_later():
 
 class TaskForm(forms.ModelForm):
     to_do = forms.DateField(widget=CustomDateInput(), initial=tomorrow)
-    to_do_time = forms.TimeField(widget=CustomTimeInput(), initial=datetime.time(23, 59))
+    to_do_time = forms.TimeField(widget=CustomTimeInput(), initial=datetime.time(00, 00))
     dead_line = forms.DateField(widget=CustomDateInput(), initial=one_week_later)
-    dead_line_time = forms.TimeField(widget=CustomTimeInput(), initial=datetime.time(23, 59))
+    dead_line_time = forms.TimeField(widget=CustomTimeInput(), initial=datetime.time(00, 00))
 
     class Meta:
         model = Task

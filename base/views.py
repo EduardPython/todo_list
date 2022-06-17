@@ -63,6 +63,9 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(TaskDetailView, self).get_context_data(**kwargs)
+        context.update({
+            "btc_price": get_btc_price(),
+        })
         return context
 
 
@@ -79,6 +82,7 @@ class CategoryListView(LoginRequiredMixin, ListView):
             "household": Task.objects.filter(category=Task.CATEGORY_HOUSEHOLD, user=self.request.user).order_by("-dead_line"),
             "other": Task.objects.filter(category=Task.CATEGORY_OTHER, user=self.request.user).order_by("-dead_line"),
             'number_of_tasks': Task.objects.all().filter(user=self.request.user).count(),
+            "btc_price": get_btc_price(),
         }
         context.update(extra_context)
         return context
@@ -103,7 +107,9 @@ class TaskDone(LoginRequiredMixin, DetailView):
 class DeleteTaskView(LoginRequiredMixin, DeleteView):
     model = Task
     success_url = reverse_lazy("tasks")
-
+    extra_context = {
+            "btc_price": get_btc_price(),
+        }
 
 class ListByCategories(LoginRequiredMixin, ListView):
     template_name = "base/list_by_categories.html"
@@ -116,6 +122,7 @@ class ListByCategories(LoginRequiredMixin, ListView):
         context = super(ListByCategories, self).get_context_data(*args, **kwargs)
         extra_context = {
             "name_of_category": self.kwargs["category"],
+            "btc_price": get_btc_price(),
         }
         context.update(extra_context)
         return context
@@ -125,6 +132,9 @@ class TaskEditView(UpdateView):
     template_name = "base/task_edit.html"
     form_class = TaskForm
     model = Task
+    extra_context = {
+        "btc_price": get_btc_price(),
+    }
 
 
 def register_request(request):

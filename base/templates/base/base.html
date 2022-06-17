@@ -8,12 +8,12 @@
 </head>
 <div class="head">
 <span>BTC now: {{ btc_price }} USD</span>
-<span>{{ user }} |
+<span><h4>{{ user }} |
     {% if request.user.is_authenticated %}
       <a href="{% url "logout" %}">Logout</a>
     {% else %}
       <a href="{% url "login" %}">Login</a>
-    {% endif %}</span>
+    {% endif %}</h4></span>
 </div>
     <h1>To do list</h1>
     {% block body %}
