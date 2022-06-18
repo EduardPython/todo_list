@@ -4,28 +4,49 @@
   <a href="{% url "tasks" %}">Homepage</a><br><br>
   <h3>CATEGORIES - Total tasks ({{ number_of_tasks}})<br><br></h3>
 
-  <h4><a class="nodiffcolor" href={% url "list_by_categories" family %}>Family ({{ family.count }})</a></h4>
+
+  <h4><a class="discoloration" href={% url "list_by_categories" "family" %}>Family ({{ family.count }})</a></h4>
   {% for task in family %}
-    <p>{{ task.name|slice:":25" }} - <a href="{% url 'task_detail' task.id %}">detail</a></p>
+      {% if task.completed %}
+            <p><i><s>{{ task.name|slice:":25" }} - <a href="{% url 'task_detail' task.id %}">detail</a></s></i></p>
+      {% else %}
+            <p>{{ task.name|slice:":25" }} - <a href="{% url 'task_detail' task.id %}">detail</a></p>
+      {% endif %}
   {% endfor %}<br>
 
-  <h4><a class="nodiffcolor" href={% url "list_by_categories" work %}>Work ({{ work.count }})</a></h4>
+  <h4><a class="nodiffcolor" href={% url "list_by_categories" "work" %}>Work ({{ work.count }})</a></h4>
   {% for task in work %}
-    <p>{{ task.name|slice:":25" }} - <a href="{% url 'task_detail' task.id %}">detail</a></p>
+      {% if task.completed %}
+            <p><i><s>{{ task.name|slice:":25" }} - <a href="{% url 'task_detail' task.id %}">detail</a></s></i></p>
+      {% else %}
+            <p>{{ task.name|slice:":25" }} - <a href="{% url 'task_detail' task.id %}">detail</a></p>
+      {% endif %}
   {% endfor %}<br>
 
-  <h4><a class="nodiffcolor" href={% url "list_by_categories" garden %}>Garden ({{ garden.count }})</a></h4>
+  <h4><a class="nodiffcolor" href={% url "list_by_categories" "garden" %}>Garden ({{ garden.count }})</a></h4>
   {% for task in garden %}
-    <p>{{ task.name|slice:":25" }} - <a href="{% url 'task_detail' task.id %}">detail</a></p>
+      {% if task.completed %}
+            <p><i><s>{{ task.name|slice:":25" }} - <a href="{% url 'task_detail' task.id %}">detail</a></s></i></p>
+      {% else %}
+            <p>{{ task.name|slice:":25" }} - <a href="{% url 'task_detail' task.id %}">detail</a></p>
+      {% endif %}
   {% endfor %}<br>
 
-  <h4><a class="nodiffcolor" href={% url "list_by_categories" household %}>Household ({{ household.count }})</a></h4>
+  <h4><a class="nodiffcolor" href={% url "list_by_categories" "household" %}>Household ({{ household.count }})</a></h4>
   {% for task in household %}
-    <p>{{ task.name|slice:":25" }} - <a href="{% url 'task_detail' task.id %}">detail</a></p>
+      {% if task.completed %}
+            <p><i><s>{{ task.name|slice:":25" }} - <a href="{% url 'task_detail' task.id %}">detail</a></s></i></p>
+      {% else %}
+            <p>{{ task.name|slice:":25" }} - <a href="{% url 'task_detail' task.id %}">detail</a></p>
+      {% endif %}
   {% endfor %}<br>
 
-  <h4><a class="nodiffcolor" href={% url "list_by_categories" other %}>Other ({{ other.count }})</a></h4>
+  <h4><a class="nodiffcolor" href={% url "list_by_categories" "other" %}>Other ({{ other.count }})</a></h4>
   {% for task in other %}
-    <p>{{ task.name|slice:":25" }} - <a href="{% url 'task_detail' task.id %}">detail</a></p>
+      {% if task.completed %}
+            <p><i><s>{{ task.name|slice:":25" }} - <a href="{% url 'task_detail' task.id %}">detail</a></s></i></p>
+      {% else %}
+            <p>{{ task.name|slice:":25" }} - <a href="{% url 'task_detail' task.id %}">detail</a></p>
+      {% endif %}
   {% endfor %}<br>
 {% endblock body %}

@@ -70,17 +70,19 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
 
 
 class CategoryListView(LoginRequiredMixin, ListView):
-    queryset = Task.objects.all()
     template_name = "base/categories.html"
+
+    def get_queryset(self):
+        return Task.objects.all().filter(user=self.request.user)
 
     def get_context_data(self, *args, **kwargs):
         context = super(CategoryListView, self).get_context_data(*args, **kwargs)
         extra_context = {
-            "family": Task.objects.filter(category=Task.CATEGORY_FAMILY, user=self.request.user).order_by("-dead_line"),
-            "work": Task.objects.filter(category=Task.CATEGORY_WORK, user=self.request.user).order_by("-dead_line"),
-            "garden": Task.objects.filter(category=Task.CATEGORY_GARDEN, user=self.request.user).order_by("-dead_line"),
-            "household": Task.objects.filter(category=Task.CATEGORY_HOUSEHOLD, user=self.request.user).order_by("-dead_line"),
-            "other": Task.objects.filter(category=Task.CATEGORY_OTHER, user=self.request.user).order_by("-dead_line"),
+            "family": Task.objects.filter(category=Task.CATEGORY_FAMILY, user=self.request.user).order_by("completed", "-dead_line"),
+            "work": Task.objects.filter(category=Task.CATEGORY_WORK, user=self.request.user).order_by("completed", "-dead_line"),
+            "garden": Task.objects.filter(category=Task.CATEGORY_GARDEN, user=self.request.user).order_by("completed", "-dead_line"),
+            "household": Task.objects.filter(category=Task.CATEGORY_HOUSEHOLD, user=self.request.user).order_by("completed", "-dead_line"),
+            "other": Task.objects.filter(category=Task.CATEGORY_OTHER, user=self.request.user).order_by("completed", "-dead_line"),
             'number_of_tasks': Task.objects.all().filter(user=self.request.user).count(),
             "btc_price": get_btc_price(),
         }
@@ -110,6 +112,7 @@ class DeleteTaskView(LoginRequiredMixin, DeleteView):
     extra_context = {
             "btc_price": get_btc_price(),
         }
+
 
 class ListByCategories(LoginRequiredMixin, ListView):
     template_name = "base/list_by_categories.html"
