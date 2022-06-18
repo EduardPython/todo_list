@@ -5,6 +5,10 @@
     <a href="{% url 'categories' %}">Categories</a><br><br>
     <h2>List of category: {{ name_of_category.upper }}</h2>
     {% for task in object_list %}
-    <p> * {{ task.name }}</p>
+      {% if task.completed %}
+        <p><i><s>{{ task.name|slice:":25" }}</s></i></p>
+      {% else %}
+        <p>{{ task.name|slice:":25" }}</p>
+      {% endif %}
     {% endfor %}
 {% endblock %}
