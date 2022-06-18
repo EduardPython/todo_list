@@ -133,3 +133,22 @@ ve views do TaskCreateView přidat funkci def form_valid
     - v task_create.html uprava data a casu
 
 * Pridany user do base.html -> To do list - {{ user }}
+
+* Pridan detail kategorie s vypisy ukolu
+    - ve views.py pridana class ListByCategories
+    - vytvoren list_by_categories.html
+    - cesta v urls.py
+
+* Vytvoreny prokliky na detail kazde kategorie v categories.html
+    - pridana cesta v urls.py
+
+* Doplneny contexty na BTC_price ve views.py
+
+* Pridana class Meta - ordering v models.py (migrace)
+
+
+
+
+
+
+
