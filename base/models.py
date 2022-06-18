@@ -40,6 +40,10 @@ class Task(models.Model):
     dead_line_time = models.TimeField()
     completed = models.BooleanField(default=False)
 
+
+    class Meta:
+        ordering = ["completed", "-dead_line"]
+
     def __str__(self):
         return self.name[:30]
 
