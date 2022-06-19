@@ -18,6 +18,13 @@ class TaskLoginView(LoginView):
     fields = "__all__"
     redirect_authenticated_user = True
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(TaskLoginView, self).get_context_data(**kwargs)
+        context.update({
+            "btc_price": get_btc_price(),
+        })
+        return context
+
     def get_success_url(self):
         return reverse_lazy("tasks")
 
