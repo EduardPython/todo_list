@@ -28,7 +28,7 @@ def get_btc_price():
     return data["bpi"]["USD"]["rate"][:6]
 
 
-class BaseView(TemplateView):
+class BaseView(LoginRequiredMixin, TemplateView):       # this maybe can be deleted. It was mentioned for btc_price, but has no effect
     template_name = "base/base.html"
 
     def get_context_data(self, *args, **kwargs):

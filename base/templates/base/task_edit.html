@@ -1,6 +1,7 @@
 {% extends "base/base.html" %}
 
 {% block form %}
+    <a href="{% url "tasks" %}">Homepage</a>
     <form action="{% url "task_edit" task.id %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
