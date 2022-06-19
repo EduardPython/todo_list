@@ -1,17 +1,20 @@
 {% extends "base/base.html" %}
 
-{% block form %}
+{% block body %}
 
-
+    <div>
 	<h1>Register a new user</h1>
-	<form method="POST">
+    </div>
+    <div align="center">
+    <form method="POST">
 		{% csrf_token %}
 	<table>
       {{ register_form }}
     </table>
+        <br>
 		<button type="submit">Register</button>
 	</form>
 	<p class="text-center">If you already have an account, <a href={% url "login" %}>login</a> instead.</p>
+    </div>
 
-
-{% endblock %}
+{% endblock body %}
