@@ -92,6 +92,7 @@ class CategoryListView(LoginRequiredMixin, ListView):
             "other": Task.objects.filter(category=Task.CATEGORY_OTHER, user=self.request.user),
             'number_of_tasks': Task.objects.all().filter(user=self.request.user).count(),
             "btc_price": get_btc_price(),
+            "completed_tasks": Task.objects.all().filter(completed=True),
         }
         context.update(extra_context)
         return context

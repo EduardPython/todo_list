@@ -2,7 +2,7 @@
 
 {% block body %}
   <a href="{% url "tasks" %}">Homepage</a><br><br>
-  <h3>CATEGORIES - Total tasks ({{ number_of_tasks}})<br><br></h3>
+  <h3>CATEGORIES - Total tasks ({{ number_of_tasks}}) - finished({{ completed_tasks.count }})<br><br></h3>
 
 
   <h4><a class="nodiffcolor" href={% url "list_by_categories" "family" %}>Family ({{ family.count }})</a></h4>
