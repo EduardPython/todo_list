@@ -1,8 +1,9 @@
-{% include "base/base.html" %}
+{% extends "base/base.html" %}
 
 {% block body %}
-  <a href="{% url "tasks" %}">Homepage</a><br><br>
-  <h3>CATEGORIES - Total tasks ({{ number_of_tasks}}) - finished({{ completed_tasks.count }})<br><br></h3>
+  <a href="{% url "tasks" %}">Homepage</a><br>
+  <h3>CATEGORIES</h3>
+    <h5>Total tasks ({{ number_of_tasks}})<br> Finished ({{ completed_tasks.count }})<br></h5>
 
 
   <h4><a class="nodiffcolor" href={% url "list_by_categories" "family" %}>Family ({{ family.count }})</a></h4>
