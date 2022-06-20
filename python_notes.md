@@ -48,15 +48,23 @@ které chceme nepřihlášeným zablokovat
   LOGIN_URL = "login" (zkratka v urlpaterns v urls.py), k přesměrování na přihlašovací formulář. Jinak django zahlásí prosté "page not found error 404"
 
 # GIT BRANCHES
-- nejdřív (aspoň myslím), musím mít současnou verzi projektu, pak udělám změny, přidám je (add .), commitnu (commit) a pak:
- >git push -u origin name_of_branch
-- tím se na githubu vytvoří branch
+##vytvoření větve:
+>git branch name_of_branch      (pouze vytvoří větev)\
+>git checkout -b name_of_branch     (vytvoří větev a přepne se na ni)
+##smazání větve:
+>git branch -d name_of_branch       (smaže lokální větev)\
+> git push origin -delete name_of_branch        (smaže větev na remotu)
 
-- po stáhnutí změn z githubu: 
+##stáhnutí změn:
+(musím být přepnutý na větvi kterou chci aktualizovat)
  >git pull
-- se stáhnou i všechny větve, mezi kterými můžu přepínat:
- >git checkout name_of_branch
-- zobrazení větve na která je aktivní:
+##přepínání mezi větvemi:
+ >git checkout name_of_branch\
+ >git switch name_of_branch 
+##zobrazení aktivní větve:
  >git status
-- seznam větví:
- >git branch
+##seznam větví:
+ >git branch\
+> git beanch -a
+##výpis commitů:
+>git log
